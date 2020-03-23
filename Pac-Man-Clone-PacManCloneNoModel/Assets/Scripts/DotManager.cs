@@ -7,6 +7,8 @@ using System.Linq;
 public class DotManager : MonoBehaviour
 {
     public GameObject Dotprefab;
+    public float timer = 1;
+    private int t;
     public List<Options> options = new List<Options>();
 
     void Start()
@@ -16,7 +18,12 @@ public class DotManager : MonoBehaviour
 
     void Update()
     {
-        
+        timer -= Time.deltaTime;
+        if (timer <= 0) 
+        {
+            SpawnDot();
+            timer = 1;
+        }
     }
 
     // Check every tile (from (2, 2) to (28, 31)) of the maze and add it to the List<Vector2>options if location is "valid".
@@ -48,6 +55,21 @@ public class DotManager : MonoBehaviour
             Vector3 pos = new Vector3(option.x, option.y, 0);
             Instantiate(Dotprefab, pos, Quaternion.identity);
         }
+    }
+
+    void SpawnDot()
+    {
+        int index = Random.Range(0, options.Count);
+        var option = options[index];
+        t++;
+        if (PosEmpty(option.x, option.y))
+        {
+            Instantiate(Dotprefab, new Vector3(option.x, option.y, 0), Quaternion.identity);
+            t = 0;
+        }
+        else if (t < 10)
+            SpawnDot();
+        else return;
     }
 
     bool PosEmpty(int x, int y)
