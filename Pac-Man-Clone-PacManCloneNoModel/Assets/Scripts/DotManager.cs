@@ -55,7 +55,7 @@ public class DotManager : MonoBehaviour
         foreach (var option in options)
         {
             Vector3 pos = new Vector3(option.x, option.y, 0);
-            //Instantiate(Dotprefab, pos, Quaternion.identity);
+            Instantiate(Dotprefab, pos, Quaternion.identity);
         }
     }
 
