@@ -12,7 +12,6 @@ public class DotManager : MonoBehaviour
     void Start()
     {
         MakeMap();
-
     }
 
     void Update()
@@ -20,13 +19,25 @@ public class DotManager : MonoBehaviour
         
     }
 
-    void MakeMap()
+    // Check every tile (from (2, 2) to (28, 31)) of the maze and add it to the List<Vector2>options if location is "valid".
+    // Afterwards, place 1 dot in every valid location.
+    void MakeMap() 
     {
-        for (int i = 2; i < 28; i++)
+        for (int j = 2; j < 31; j++)
         {
-            for (int j = 2; j < 31; j++)
+            for (int i = 2; i < 28; i++)
             {
-                if (PosEmpty(i, j))
+                if (j > 11 && j < 23 && i != 22 && i != 7) // avoid middle part of the mace (ghosthouse and TP)
+                {
+                    continue;
+                }
+
+                if ((j == 28 || j == 8) && (i == 27 || i == 2)) //avoid power pellets
+                {
+                    continue;
+                }
+
+                else if (PosEmpty(i, j)) // avoid walls
                 {
                     options.Add(new Options(i, j));
                 }
