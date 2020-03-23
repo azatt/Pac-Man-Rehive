@@ -7,13 +7,15 @@ using System.Linq;
 public class DotManager : MonoBehaviour
 {
     public GameObject Dotprefab;
-    public float timer = 1;
+    public float timer;
+    private float resetvalue;
     private int t;
     public List<Options> options = new List<Options>();
 
     void Start()
     {
         MakeMap();
+        resetvalue = timer;
     }
 
     void Update()
@@ -22,7 +24,7 @@ public class DotManager : MonoBehaviour
         if (timer <= 0) 
         {
             SpawnDot();
-            timer = 1;
+            timer = resetvalue;
         }
     }
 
@@ -53,7 +55,7 @@ public class DotManager : MonoBehaviour
         foreach (var option in options)
         {
             Vector3 pos = new Vector3(option.x, option.y, 0);
-            Instantiate(Dotprefab, pos, Quaternion.identity);
+            //Instantiate(Dotprefab, pos, Quaternion.identity);
         }
     }
 
