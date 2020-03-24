@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48df297c2214e324dac21502f492f4f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movespeed: 0.2
+  movespeed: 0.15
   chomp: {fileID: 1329145734}
   moveDirection: {x: 0, y: 0}
   score: {fileID: 1695616410}
@@ -3343,6 +3343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dotprefab: {fileID: 99058973842140176, guid: b42c39a7cedeeb34b9207cd74081010c, type: 3}
   timer: 0
+  active: 0
 --- !u!1 &1553841325
 GameObject:
   m_ObjectHideFlags: 0
