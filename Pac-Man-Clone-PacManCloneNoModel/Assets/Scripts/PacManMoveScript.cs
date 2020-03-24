@@ -40,7 +40,6 @@ public class PacManMoveScript : MonoBehaviour
             if(num > 49)
             {
                 distanceMultiplier = 2; 
-                print("double");
             }
             if (Input.GetKey(KeyCode.UpArrow) && valid(distanceMultiplier * Vector2.up))
                 destination = (Vector2)transform.position + distanceMultiplier * Vector2.up;

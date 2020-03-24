@@ -39,6 +39,11 @@ public class GameManagerScript : MonoBehaviour
         StartCoroutine(StartGame());
     }
 
+    private void Update()
+    {
+       // print(spawning.active);
+    }
+
     //Starts the sequence of ghosts moving from the ghosthouse. Ghosts aren't activated until they are outside the house. Time to release can be varied by changing the WaitForSeconds variable
     IEnumerator GhostHouseBehaviour()
     {
@@ -123,6 +128,7 @@ public class GameManagerScript : MonoBehaviour
         lives -= 1;
         InitializeLives();
         deathSound.Play();
+        spawning.active = false;
         StopAllCoroutines();
         if (lives > 0)
         {
@@ -154,6 +160,7 @@ public class GameManagerScript : MonoBehaviour
     IEnumerator StartGame()
     {
         startSound.Play();
+        spawning.active = true;
 
         yield return new WaitForSeconds(4);
         PacMan.GetComponent<PacManMoveScript>().enabled = true;
@@ -168,6 +175,7 @@ public class GameManagerScript : MonoBehaviour
     //Resets position of all ghosts and pac man to starting positions
     void ResetGame()
     {
+        spawning.active = true;
         PacMan.GetComponent<PacManMoveScript>().ResetGame();
         Blinky.GetComponent<BlinkyScript>().ResetGame();
         Inky.GetComponent<InkyScript>().ResetGame();
@@ -201,6 +209,7 @@ public class GameManagerScript : MonoBehaviour
         if(pelletsCollected == totalDots && powerPelletsCollected == 4)
         {
             //TODO: Stop all movement
+            spawning.active = false;
             victorySound.Play();
             yield return new WaitForSeconds(5);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

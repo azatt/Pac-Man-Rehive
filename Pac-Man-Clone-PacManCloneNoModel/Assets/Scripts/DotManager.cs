@@ -24,7 +24,7 @@ public class DotManager : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        if (timer <= 0) 
+        if (timer <= 0 && active) 
         {
             SpawnDot();
             timer = 5 + totalpoints.score/1000;
