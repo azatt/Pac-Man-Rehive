@@ -35,14 +35,21 @@ public class PacManMoveScript : MonoBehaviour
         // Check for Input if not moving
         if ((Vector2)transform.position == destination)
         {
-            if (Input.GetKey(KeyCode.UpArrow) && valid(Vector2.up))
-                destination = (Vector2)transform.position + Vector2.up;
-            if (Input.GetKey(KeyCode.RightArrow) && valid(Vector2.right))
-                destination = (Vector2)transform.position + Vector2.right;
-            if (Input.GetKey(KeyCode.DownArrow) && valid(-Vector2.up))
-                destination = (Vector2)transform.position - Vector2.up;
-            if (Input.GetKey(KeyCode.LeftArrow) && valid(-Vector2.right))
-                destination = (Vector2)transform.position - Vector2.right;
+            int distanceMultiplier = 1;
+            int num = Random.Range(0, 100);
+            if(num > 49)
+            {
+                distanceMultiplier = 2; 
+                print("double");
+            }
+            if (Input.GetKey(KeyCode.UpArrow) && valid(distanceMultiplier * Vector2.up))
+                destination = (Vector2)transform.position + distanceMultiplier * Vector2.up;
+            if (Input.GetKey(KeyCode.RightArrow) && valid(distanceMultiplier * Vector2.right))
+                destination = (Vector2)transform.position + distanceMultiplier * Vector2.right;
+            if (Input.GetKey(KeyCode.DownArrow) && valid(-distanceMultiplier * Vector2.up))
+                destination = (Vector2)transform.position -distanceMultiplier * Vector2.up;
+            if (Input.GetKey(KeyCode.LeftArrow) && valid(-distanceMultiplier * Vector2.right))
+                destination = (Vector2)transform.position -distanceMultiplier * Vector2.right;
         }
         
         //works for now, counts moving in a wall as moving
@@ -90,7 +97,7 @@ public class PacManMoveScript : MonoBehaviour
     // Cast Line from 'next square in movedirection to 'Pac-Man'. True = hit pac man, ignores ghosts
     bool valid(Vector2 dir)
     {
-        LayerMask layerMask = LayerMask.GetMask("Ghosts");
+        LayerMask layerMask = LayerMask.GetMask("Ghosts", "Ignore Raycast");
         Vector2 pos = transform.position.Round();
         RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos, ~layerMask);
         return (hit.collider == GetComponent<Collider2D>());
