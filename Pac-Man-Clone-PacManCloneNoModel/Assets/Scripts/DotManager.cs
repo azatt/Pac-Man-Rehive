@@ -8,23 +8,26 @@ public class DotManager : MonoBehaviour
 {
     public GameObject Dotprefab;
     public float timer;
-    private float resetvalue;
+    //private float resetvalue;
     private int t;
     public List<Options> options = new List<Options>();
+    ScoreScript totalpoints;
 
     void Start()
     {
         MakeMap();
-        resetvalue = timer;
+        totalpoints = FindObjectOfType<ScoreScript>();
+        //resetvalue = timer;
     }
 
     void Update()
     {
         timer -= Time.deltaTime;
+        print(totalpoints.score);
         if (timer <= 0) 
         {
             SpawnDot();
-            timer = resetvalue;
+            timer = 3 + totalpoints.score/100;
         }
     }
 
