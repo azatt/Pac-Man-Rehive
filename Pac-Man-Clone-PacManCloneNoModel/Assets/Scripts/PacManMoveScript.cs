@@ -35,11 +35,14 @@ public class PacManMoveScript : MonoBehaviour
         // Check for Input if not moving
         if ((Vector2)transform.position == destination)
         {
-            int distanceMultiplier = 1;
+            float distanceMultiplier = 1;
             int num = Random.Range(0, 100);
-            if(num > 49)
+            if(num < 33)
             {
                 distanceMultiplier = 2; 
+            }else if(num < 66)
+            {
+                distanceMultiplier = 3;
             }
             if (Input.GetKey(KeyCode.UpArrow) && valid(distanceMultiplier * Vector2.up))
                 destination = (Vector2)transform.position + distanceMultiplier * Vector2.up;
