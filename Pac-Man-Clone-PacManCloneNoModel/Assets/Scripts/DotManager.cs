@@ -19,7 +19,6 @@ public class DotManager : MonoBehaviour
         MakeMap();
         totalpoints = FindObjectOfType<ScoreScript>();
         dotcount = FindObjectOfType<GameManagerScript>();
-        print(dotcount.totalDots);
     }
 
     void Update()
@@ -28,8 +27,7 @@ public class DotManager : MonoBehaviour
         if (timer <= 0) 
         {
             SpawnDot();
-            timer = 3 + totalpoints.score/100;
-            print(dotcount.totalDots);
+            timer = 5 + totalpoints.score/1000;
         }
     }
 
