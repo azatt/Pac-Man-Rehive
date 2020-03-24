@@ -27,7 +27,7 @@ public class DotManager : MonoBehaviour
         if (timer <= 0 && active) 
         {
             SpawnDot();
-            timer = 5 + totalpoints.score/1000;
+            timer = 4 + totalpoints.score/1000;
         }
     }
 
