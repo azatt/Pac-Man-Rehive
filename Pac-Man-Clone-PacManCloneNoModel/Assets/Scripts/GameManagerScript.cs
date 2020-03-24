@@ -16,16 +16,22 @@ public class GameManagerScript : MonoBehaviour
     public int pelletsCollected { get; set; }
     [HideInInspector]
     public int powerPelletsCollected { get; set; }
+    [HideInInspector]
+    public int totalDots { get; set; }
+    
     private int lives;
     private List<GameObject> livesList;
     public GameObject life1, life2, life3;
 
     public AudioSource deathSound, startSound, victorySound;
+    DotManager spawning;
 
     // Start is called before the first frame update
     void Start()
     {
         livesList = new List<GameObject>();
+        spawning = FindObjectOfType<DotManager>();
+        totalDots = 240;
         lives = 3;
         livesList.Add(life1);
         livesList.Add(life2); 
@@ -192,7 +198,7 @@ public class GameManagerScript : MonoBehaviour
 
     public IEnumerator CheckForGameEnd()
     {
-        if(pelletsCollected == 240 && powerPelletsCollected == 4)
+        if(pelletsCollected == totalDots && powerPelletsCollected == 4)
         {
             //TODO: Stop all movement
             victorySound.Play();

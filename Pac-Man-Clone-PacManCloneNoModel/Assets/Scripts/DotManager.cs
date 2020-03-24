@@ -8,26 +8,28 @@ public class DotManager : MonoBehaviour
 {
     public GameObject Dotprefab;
     public float timer;
-    //private float resetvalue;
+    public bool active;
     private int t;
     public List<Options> options = new List<Options>();
     ScoreScript totalpoints;
+    GameManagerScript dotcount;
 
     void Start()
     {
         MakeMap();
         totalpoints = FindObjectOfType<ScoreScript>();
-        //resetvalue = timer;
+        dotcount = FindObjectOfType<GameManagerScript>();
+        print(dotcount.totalDots);
     }
 
     void Update()
     {
         timer -= Time.deltaTime;
-        print(totalpoints.score);
         if (timer <= 0) 
         {
             SpawnDot();
             timer = 3 + totalpoints.score/100;
+            print(dotcount.totalDots);
         }
     }
 
@@ -70,6 +72,7 @@ public class DotManager : MonoBehaviour
         if (PosEmpty(option.x, option.y))
         {
             Instantiate(Dotprefab, new Vector3(option.x, option.y, 0), Quaternion.identity);
+            dotcount.totalDots++;
             t = 0;
         }
         else if (t < 10)
@@ -77,7 +80,7 @@ public class DotManager : MonoBehaviour
         else return;
     }
 
-    bool PosEmpty(int x, int y)
+    public bool PosEmpty(int x, int y)
     {
         Vector2 pos = new Vector2(x, y);
         Collider2D[] collider = Physics2D.OverlapCircleAll(pos, 0f);
