@@ -31,7 +31,7 @@ public class GameManagerScript : MonoBehaviour
     {
         livesList = new List<GameObject>();
         spawning = FindObjectOfType<DotManager>();
-        totalDots = 240;
+        totalDots = 241;
         lives = 3;
         livesList.Add(life1);
         livesList.Add(life2); 
@@ -209,6 +209,7 @@ public class GameManagerScript : MonoBehaviour
         if(pelletsCollected == totalDots && powerPelletsCollected == 4)
         {
             //TODO: Stop all movement
+            StopAllCoroutines();
             spawning.active = false;
             victorySound.Play();
             yield return new WaitForSeconds(5);
