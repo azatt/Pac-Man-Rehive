@@ -29,6 +29,10 @@ public class DotManager : MonoBehaviour
             SpawnDot();
             timer = 4 + totalpoints.score/1000;
         }
+        if (dotcount.pelletsCollected == dotcount.totalDots && dotcount.powerPelletsCollected == 4 && dotcount.endtimes > 0)
+        {
+            SpawnDot();
+        }
     }
 
     // Check every tile (from (2, 2) to (28, 31)) of the maze and add it to the List<Vector2>options if location is "valid".

@@ -18,8 +18,9 @@ public class GameManagerScript : MonoBehaviour
     public int powerPelletsCollected { get; set; }
     [HideInInspector]
     public int totalDots { get; set; }
-    
+
     private int lives;
+    public int endtimes;
     private List<GameObject> livesList;
     public GameObject life1, life2, life3;
 
@@ -33,6 +34,7 @@ public class GameManagerScript : MonoBehaviour
         spawning = FindObjectOfType<DotManager>();
         totalDots = 241;
         lives = 3;
+        endtimes = 3;
         livesList.Add(life1);
         livesList.Add(life2); 
         livesList.Add(life3);
@@ -47,17 +49,17 @@ public class GameManagerScript : MonoBehaviour
     //Starts the sequence of ghosts moving from the ghosthouse. Ghosts aren't activated until they are outside the house. Time to release can be varied by changing the WaitForSeconds variable
     IEnumerator GhostHouseBehaviour()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
         Vector2 waypoint1 = new Vector2(14.5f, 17f);
         Vector2 waypoint2 = new Vector2(14f, 20f);
 
         StartCoroutine(MoveFromHouse(Pinky, waypoint1, waypoint2));
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
 
         StartCoroutine(MoveFromHouse(Inky, waypoint1, waypoint2));
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(8);
 
         StartCoroutine(MoveFromHouse(Clyde, waypoint1, waypoint2));
 
@@ -208,17 +210,20 @@ public class GameManagerScript : MonoBehaviour
     {
         if(pelletsCollected == totalDots && powerPelletsCollected == 4)
         {
-            //TODO: Stop all movement
-            PacMan.GetComponent<PacManMoveScript>().enabled = false;
-            Blinky.GetComponent<BlinkyScript>().enabled = false;
-            Pinky.GetComponent<PinkyScript>().enabled = false;
-            Inky.GetComponent<InkyScript>().enabled = false;
-            Clyde.GetComponent<ClydeScript>().enabled = false;
-            spawning.active = false;
-            victorySound.Play();
-            yield return new WaitForSeconds(5);
-            Time.timeScale = 1;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            endtimes--;
+            if (endtimes == 0)
+            {
+                PacMan.GetComponent<PacManMoveScript>().enabled = false;
+                Blinky.GetComponent<BlinkyScript>().enabled = false;
+                Pinky.GetComponent<PinkyScript>().enabled = false;
+                Inky.GetComponent<InkyScript>().enabled = false;
+                Clyde.GetComponent<ClydeScript>().enabled = false;
+                spawning.active = false;
+                victorySound.Play();
+                yield return new WaitForSeconds(5);
+                Time.timeScale = 1;
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
         yield break;
     }
